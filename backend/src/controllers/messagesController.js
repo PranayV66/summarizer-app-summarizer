@@ -35,7 +35,7 @@ async function addMessage(req, res) {
 
     // 2) Call LLM container
     const llmResponse = await axios.post(
-      'http://ollama-llama3.2:11434/api/generate',
+      'http:/llama:11434/api/generate',
       {
         model: 'llama3.2',
         prompt: userText
