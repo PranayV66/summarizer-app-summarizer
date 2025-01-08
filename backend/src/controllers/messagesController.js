@@ -23,6 +23,7 @@ async function addMessage(req, res) {
   try {
     const { chatId } = req.params;
     const { userText } = req.body;
+    console.log("userText:", userText);
     const chat = await chatsModel.getChatById(chatId);
     if (!chat) return res.status(404).json({ error: 'Chat not found' });
     if (chat.user_id !== req.user.user_id) {
@@ -30,7 +31,7 @@ async function addMessage(req, res) {
     }
 
     // 1) Create user message
-    const userMsg = await messagesModel.createMessage(chatId, 'user', userText);
+    const userMsg = await messagesModel.createMessage(chatId, userText);
 
     // 2) Call LLM container
     const llmResponse = await axios.post(
