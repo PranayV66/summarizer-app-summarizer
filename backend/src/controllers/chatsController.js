@@ -3,6 +3,8 @@ const chatsModel = require('../models/chatsModel');
 async function createChat(req, res) {
   try {
     const userId = req.user.user_id; // from auth middleware
+    console.log("userId:", userId);
+    console.log("req.body:", req.body);
     const { title } = req.body;
     const newChat = await chatsModel.createChat(userId, title);
     return res.status(201).json(newChat);

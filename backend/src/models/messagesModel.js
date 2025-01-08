@@ -3,9 +3,11 @@ const pool = require('../config/db');
 async function createMessage(chatId, content) {
   const [result] = await pool.query(
     `INSERT INTO messages (chat_id, content)
-     VALUES (?, ?, ?)`,
+     VALUES (?, ?)`,
     [chatId, content]
   );
+  console.log("chatId:", chatId);
+  console.log("content:", content);
   const insertedId = result.insertId;
 
   const [rows] = await pool.query(`SELECT * FROM messages WHERE message_id = ?`, [insertedId]);
