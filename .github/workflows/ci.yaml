@@ -30,7 +30,7 @@ jobs:
             workflow:
               - '.github/workflows/**'
 
-  build-and-push backend:
+  build-and-push-backend:
     needs: paths-filter
     runs-on: ubuntu-latest
     if: ${{ needs.paths-filter.outputs.changed_backend == 'true' || needs.paths-filter.outputs.changed_workflow == 'true' }}
@@ -60,7 +60,7 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
-  build-and-push frontend:
+  build-and-push-frontend:
     needs: paths-filter
     runs-on: ubuntu-latest
     if: ${{ needs.paths-filter.outputs.changed_frontend == 'true' || needs.paths-filter.outputs.changed_workflow == 'true' }}
