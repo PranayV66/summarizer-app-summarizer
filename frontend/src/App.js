@@ -1,12 +1,10 @@
-require('dotenv').config({ path: ' ../../.env' });
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import ChatList from './components/ChatList';
 import ChatWindow from './components/ChatWindow';
 
-const domain = process.env.APP_DOMAIN;
-const BACKEND_URL = `http://${domain}:9000`;
+const BACKEND_URL = `http://3.209.77.92:9000`;
 
 function App() {
   const [token, setToken] = useState('');

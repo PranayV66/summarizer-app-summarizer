@@ -1,17 +1,15 @@
-require('dotenv').config({ path: '../../../.env' });
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MessageInput from './MessageInput';
 
 function ChatWindow({ chat, token }) {
-  const domain = process.env.APP_DOMAIN;
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     if (!chat) return;
     // fetch messages for this chat
 
-    axios.get(`http://${domain}:9000/chats/${chat.chat_id}/messages`, {
+    axios.get(`http://3.209.77.92:9000/chats/${chat.chat_id}/messages`, {
       withCredentials: true,
     })
     .then(res => setMessages(res.data))
@@ -22,7 +20,7 @@ function ChatWindow({ chat, token }) {
     if (!chat) return;
     // send message to this chat
     
-    axios.post(`http://${domain}:9000/chats/${chat.chat_id}/messages`,
+    axios.post(`http://3.209.77.92:9000/chats/${chat.chat_id}/messages`,
       { userText: text, 
       withCredentials: true,
     })
