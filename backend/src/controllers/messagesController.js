@@ -40,19 +40,24 @@ async function addMessage(req, res) {
       },
       { responseType: 'text' }
     );
+
     // 3) Extract assistant reply as a clean string
       let assistantText = '';
-
-      try {
-        // Attempt to parse as JSON first
-        const parsed = JSON.parse(llmResponse.data);
-        assistantText = parsed.response || llmResponse.data;
-      } catch (err) {
-        // Fallback to raw text if JSON parsing fails
+      const jsonResponses = llmResponse.data.match(/{[^}]*}/g);
+      if (jsonResponses) {
+        jsonResponses.forEach(responseStr => {
+          try {
+            const parsed = JSON.parse(responseStr);
+            assistantText += parsed.response || '';
+          } catch (err) {
+            console.error('JSON parse error:', err);
+          }
+        });
+      } else {
         assistantText = llmResponse.data.trim();
       }
-
       console.log("assistantText:", assistantText);
+
     // 4) Store assistant reply
     const assistantMsg = await messagesModel.createMessage(chatId, assistantText);
     console.log("assistantMsg:", assistantMsg);
