@@ -7,79 +7,68 @@ import ChatWindow from './components/ChatWindow';
 const BACKEND_URL = `http://3.209.77.92:9000`;
 
 function App() {
+  const [token, setToken] = useState('');
   const [chats, setChats] = useState([]);
   const [selectedChat, setSelectedChat] = useState(null);
   const [newChatTitle, setNewChatTitle] = useState('');
-  const [error, setError] = useState(null); // State to handle errors
 
-    // Axios instance with default configurations
-    const axiosInstance = axios.create({
-      baseURL: BACKEND_URL,
-      withCredentials: true, // Ensures cookies are sent with every request
-    });
-  
-    // Fetch chats on component mount
   useEffect(() => {
-    const fetchChats = async () => {
-      try {
-        const response = await axiosInstance.get('/chats');
-        console.log('Chats fetched:', response.data);
-        setChats(response.data);
-      } catch (error) {
-        console.error('Error fetching chats:', error);
-        setError('Failed to load chats. Please try again.');
-      }
-    };
-
-    // Check if token cookie exists
-    const token = Cookies.get('token');
-    if (token) {
-      fetchChats();
-    } else {
-      console.log('No authentication token found.');
-      setError('You are not logged in. Please log in to view your chats.');
+    const jwtToken = Cookies.get('token');
+    if (jwtToken) {
+      setToken(jwtToken);
     }
-  }, []); // Empty dependency array ensures this runs once on mount
+  }, []);
+
+  useEffect(() => {
+    if (!token) return;
+    console.log('Fetching chats with token:', token);
+    axios.get(`${BACKEND_URL}/chats`, {
+      withCredentials: true, // Include cookies
+    })
+    .then(res => {
+      console.log('Chats fetched:', res.data);
+      setChats(res.data);
+    })
+    .catch(err => console.error('Error fetching chats:', err));
+  }, [token]);
 
   const handleSelectChat = (chat) => {
     setSelectedChat(chat);
   };
 
-  const handleCreateChat = async (e) => {
+  const handleCreateChat = (e) => {
     e.preventDefault();
     if (!newChatTitle.trim()) return;
 
-    try {
-      const response = await axiosInstance.post('/chats', { title: newChatTitle });
-      console.log('Chat created:', response.data);
-      setChats((prevChats) => [response.data, ...prevChats]);
+    console.log('Creating chat with title:', newChatTitle);
+    axios.post(`${BACKEND_URL}/chats`, { title: newChatTitle }, {
+      withCredentials: true, // Include cookies
+    })
+    .then(res => {
+      console.log('Chat created:', res.data);
+      setChats(prevChats => [res.data, ...prevChats]);
       setNewChatTitle('');
-    } catch (error) {
-      console.error('Error creating chat:', error);
-      setError('Failed to create chat. Please try again.');
-    }
+    })
+    .catch(err => console.error('Error creating chat:', err));
   };
 
   return (
     <div style={{ display: 'flex', height: '100vh' }}>
-      <div style={{ width: '250px', borderRight: '1px solid #ccc', padding: '16px' }}>
+      <div style={{ width: '250px', borderRight: '1px solid #ccc' }}>
         <h3>My Chats</h3>
-        {error && <div style={{ color: 'red', marginBottom: '16px' }}>{error}</div>}
-        <form onSubmit={handleCreateChat} style={{ marginBottom: '16px' }}>
+        <form onSubmit={handleCreateChat}>
           <input
             type="text"
             value={newChatTitle}
             onChange={(e) => setNewChatTitle(e.target.value)}
             placeholder="New chat title"
-            style={{ width: '100%', padding: '8px', marginBottom: '8px' }}
+            style={{ width: '80%', marginRight: '8px' }}
           />
-          <button type="submit" style={{ width: '100%', padding: '8px' }}>
-            Create
-          </button>
+          <button type="submit">Create</button>
         </form>
         <ChatList chats={chats} onSelectChat={handleSelectChat} />
       </div>
-      <ChatWindow chat={selectedChat} />
+      <ChatWindow chat={selectedChat} token={token} />
     </div>
   );
 }
