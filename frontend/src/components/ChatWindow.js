@@ -21,9 +21,9 @@ function ChatWindow({ chat, token }) {
     // send message to this chat
     
     axios.post(`http://3.209.77.92:9000/chats/${chat.chat_id}/messages`,
-      { userText: text, 
-      withCredentials: true,
-    })
+      { userText: text }, 
+      { withCredentials: true }
+    )
     .then(res => {
       // res.data => { userMsg, assistantMsg }
       setMessages(prev => [...prev, res.data.userMsg, res.data.assistantMsg]);

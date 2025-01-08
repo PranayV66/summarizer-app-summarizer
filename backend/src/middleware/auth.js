@@ -4,6 +4,7 @@ require('dotenv').config({ path: '../../../.env' });
 
 const authMiddleware = (req, res, next) => {
   const token = req.cookies.token; // Extract token from cookies
+  console.log('Received token:', token);
   if (!token) {
     return res.status(401).json({ error: 'No token provided' });
   }
