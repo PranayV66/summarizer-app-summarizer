@@ -49,7 +49,7 @@ function ChatWindow({ chat, token }) {
       <div style={{ border: '1px solid #ddd', padding: '8px', height: '60vh', overflowY: 'auto' }}>
         {messages.map(msg => (
           <div key={msg.id} style={{ marginBottom: '8px' }}>
-            {msg.content}
+            <div>{msg.content}</div>
           </div>
         ))}
       </div>
