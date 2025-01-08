@@ -42,9 +42,11 @@ async function addMessage(req, res) {
       }
     );
     const assistantText = llmResponse.data;
+    console.log("assistantText:", assistantText);
 
     // 3) Store assistant reply
     const assistantMsg = await messagesModel.createMessage(chatId, 'assistant', assistantText);
+    console.log("assistantMsg:", assistantMsg);
 
     return res.status(201).json({ userMsg, assistantMsg });
   } catch (error) {
