@@ -40,24 +40,21 @@ async function addMessage(req, res) {
       },
       { responseType: 'text' }
     );
-    // 3) Extract assistant reply
-    const assistantText = llmResponse.data
-      .split('\n')
-      .reduce((acc, line) => {
-        if (line.trim()) {
-          try {
-            const parsed = JSON.parse(line);
-            if (parsed.response) {
-              acc += parsed.response;
-            }
-          } catch (err) {
-            console.error('Error parsing LLM response line:', err);
-          }
-        }
-        return acc;
-      }, '');
+    // 3) Extract assistant reply as a clean string
+      let assistantText = '';
+
+      try {
+        // Attempt to parse as JSON first
+        const parsed = JSON.parse(llmResponse.data);
+        assistantText = parsed.response || llmResponse.data;
+      } catch (err) {
+        // Fallback to raw text if JSON parsing fails
+        assistantText = llmResponse.data.trim();
+      }
+
+      console.log("assistantText:", assistantText);
     // 4) Store assistant reply
-    const assistantMsg = await messagesModel.createMessage(chatId, 'assistant', assistantText);
+    const assistantMsg = await messagesModel.createMessage(chatId, assistantText);
     console.log("assistantMsg:", assistantMsg);
 
     return res.status(201).json({ userMsg, assistantMsg });

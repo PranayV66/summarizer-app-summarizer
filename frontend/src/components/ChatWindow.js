@@ -49,7 +49,7 @@ function ChatWindow({ chat, token }) {
       <div style={{ border: '1px solid #ddd', padding: '8px', height: '60vh', overflowY: 'auto' }}>
         {messages.map(msg => (
           <div key={msg.id} style={{ marginBottom: '8px' }}>
-            <strong>{msg.role}:</strong> {msg.content}
+            <strong>{msg.content.startsWith('user') ? 'User' : 'Assistant'}:</strong> {msg.content}
           </div>
         ))}
       </div>
