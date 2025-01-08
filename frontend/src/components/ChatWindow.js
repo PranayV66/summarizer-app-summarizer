@@ -16,19 +16,27 @@ function ChatWindow({ chat, token }) {
     .catch(err => console.error(err));
   }, [chat, token]);
 
-  const handleSendMessage = (text) => {
+  const handleSendMessage = async (text) => {
     if (!chat) return;
     // send message to this chat
-    
-    axios.post(`http://3.209.77.92:9000/chats/${chat.chat_id}/messages`,
-      { userText: text }, 
-      { withCredentials: true }
-    )
-    .then(res => {
-      // res.data => { userMsg, assistantMsg }
-      setMessages(prev => [...prev, res.data.userMsg, res.data.assistantMsg]);
-    })
-    .catch(err => console.error(err));
+    try 
+      {
+        const userMsg = await axios.post(`http://3.209.77.92:9000/chats/${chat.chat_id}/messages`,
+          { userText: text }, 
+          { withCredentials: true }
+        );
+        const typingMsg = { id: 'typing', role: 'assistant', content: 'Assistant is typing...' };
+          setMessages(prev => [...prev, userMsg.data.userMsg, typingMsg]);
+
+        const assistantMsg = userMsg.data.assistantMsg;
+        setMessages(prev => prev.filter(msg => msg.id !== 'typing').concat(assistantMsg));
+      }      
+    catch (err) 
+      {
+        console.error(err);
+        // Remove "Assistant is typing..." if an error occurs
+        setMessages(prev => prev.filter(msg => msg.id !== 'typing'));
+      }
   };
 
   if (!chat) {

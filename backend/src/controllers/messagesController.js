@@ -29,22 +29,34 @@ async function addMessage(req, res) {
     if (chat.user_id !== req.user.user_id) {
       return res.status(403).json({ error: 'Forbidden' });
     }
-
     // 1) Create user message
     const userMsg = await messagesModel.createMessage(chatId, userText);
-
     // 2) Call LLM container
     const llmResponse = await axios.post(
-      'http:/llama:11434/api/generate',
+      'http://llama:11434/api/generate',
       {
         model: 'llama3.2',
         prompt: userText
-      }
+      },
+      { responseType: 'text' }
     );
-    const assistantText = llmResponse.data;
-    console.log("assistantText:", assistantText);
-
-    // 3) Store assistant reply
+    // 3) Extract assistant reply
+    const assistantText = llmResponse.data
+      .split('\n')
+      .reduce((acc, line) => {
+        if (line.trim()) {
+          try {
+            const parsed = JSON.parse(line);
+            if (parsed.response) {
+              acc += parsed.response;
+            }
+          } catch (err) {
+            console.error('Error parsing LLM response line:', err);
+          }
+        }
+        return acc;
+      }, '');
+    // 4) Store assistant reply
     const assistantMsg = await messagesModel.createMessage(chatId, 'assistant', assistantText);
     console.log("assistantMsg:", assistantMsg);
 
