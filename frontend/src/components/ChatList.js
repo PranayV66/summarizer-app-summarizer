@@ -1,20 +1,19 @@
 import React from 'react';
+import '../ChatList.css';
 
 function ChatList({ chats, onSelectChat }) {
   return (
-    <div style={{ width: '250px', borderRight: '1px solid #ccc' }}>
-      <h3>My Chats</h3>
-      <ul style={{ listStyle: 'none', padding: 0 }}>
-        {chats.map(chat => (
-          <li
-            key={chat.chat_id}
-            style={{ cursor: 'pointer', marginBottom: '8px' }}
-            onClick={() => onSelectChat(chat)}
-          >
-            {chat.title || `Chat #${chat.chat_id}`}
-          </li>
-        ))}
-      </ul>
+    <div className="chat-list">
+      <h3>Your Chats</h3>
+      {chats.map((chat) => (
+        <div
+          key={chat.id}
+          className="chat-list-item"
+          onClick={() => onSelectChat(chat)}
+        >
+          {chat.title}
+        </div>
+      ))}
     </div>
   );
 }

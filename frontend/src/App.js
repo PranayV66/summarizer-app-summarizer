@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ChatList from './components/ChatList';
 import ChatWindow from './components/ChatWindow';
+import './App.css';
 
 const BACKEND_URL = `http://3.209.77.92:9000`;
 
@@ -48,26 +49,28 @@ function App() {
   };
 
   return (
-    <div style={{ display: 'flex', height: '100vh' }}>
-      <div style={{ width: '250px', borderRight: '1px solid #ccc', padding: '16px' }}>
-        <h3>My Chats</h3>
+    <div className="App">
+      <div className="chat-list-container">
+        <h3>New Chat</h3>
         {error && <div style={{ color: 'red', marginBottom: '16px' }}>{error}</div>}
-        <form onSubmit={handleCreateChat} style={{ marginBottom: '16px' }}>
+        <form onSubmit={handleCreateChat}>
           <input
             type="text"
             value={newChatTitle}
             onChange={(e) => setNewChatTitle(e.target.value)}
-            placeholder="New chat title"
-            style={{ width: '100%', padding: '8px', marginBottom: '8px' }}
+            placeholder="Enter a title for the new chat"
+            className="new-chat-input" // Use CSS class
           />
-          <button type="submit" style={{ width: '100%', padding: '8px' }}>
-            Create
+          <button type="submit" className="create-chat-button">
+            Create!
           </button>
         </form>
         <ChatList chats={chats} onSelectChat={handleSelectChat} />
         {chats.length === 0 && <p>No chats available. Create a new chat!</p>}
       </div>
-      <ChatWindow chat={selectedChat} />
+      <div className="chat-window-container">
+        <ChatWindow chat={selectedChat} />
+      </div>
     </div>
   );
 }

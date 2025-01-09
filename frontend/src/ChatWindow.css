@@ -1,0 +1,15 @@
+.chat-window {
+    background-color: #121212;
+    color: #ffffff;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: none;
+    box-shadow: none;
+    padding: 16px;
+}
+.chat-window h2 {
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 16px;
+}

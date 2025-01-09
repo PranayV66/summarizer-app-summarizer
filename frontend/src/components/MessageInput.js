@@ -19,7 +19,7 @@ function MessageInput({ onSend }) {
   }, [text]);
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginTop: '8px' }}>
+    <form onSubmit={handleSubmit} className="message-input-form">
       <textarea
         ref={textareaRef}
         className="message-textarea"
@@ -27,9 +27,9 @@ function MessageInput({ onSend }) {
         onChange={(e) => setText(e.target.value)}
         placeholder="Type your message..."
         rows={1}
+        aria-label="Message input"
       />
-      <button type="submit" className="send-button">
-        Send
+      <button type="submit" className="send-button"     aria-label="Send message">
       </button>
     </form>
   );
