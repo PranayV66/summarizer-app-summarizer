@@ -50,21 +50,23 @@ function App() {
   return (
     <div className="App">
       <div className="chat-list-container">
-        <h3>New Chat</h3>
+        <h3>Create New Chat</h3>
         {error && <div style={{ color: 'red', marginBottom: '16px' }}>{error}</div>}
         <form onSubmit={handleCreateChat}>
           <input
             type="text"
             value={newChatTitle}
             onChange={(e) => setNewChatTitle(e.target.value)}
-            placeholder="Enter a title for the new chat"
+            placeholder="Title for your next chat"
             className="new-chat-input"
           />
           <button type="submit" className="create-chat-button">
             Create!
           </button>
         </form>
-        <ChatList chats={chats} onSelectChat={handleSelectChat} />
+        <div className="chat-list-spacing">
+          <ChatList chats={chats} onSelectChat={handleSelectChat} />
+        </div>
         {chats.length === 0 && <p>No chats available. Create a new chat!</p>}
       </div>
       <div className="chat-window-container">

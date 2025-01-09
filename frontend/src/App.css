@@ -50,6 +50,9 @@
   overflow-y: auto;
   box-sizing: border-box;
 }
+.chat-list-spacing {
+  margin-top: 24px;
+}
 .chat-window-container {
   flex: 1;
   padding: 16px;

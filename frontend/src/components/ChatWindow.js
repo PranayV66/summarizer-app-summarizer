@@ -37,7 +37,7 @@ function ChatWindow({ chat }) {
   };
 
   if (!chat) {
-    return <div style={{ flex: 1, padding: '16px' }}>Select a chat</div>;
+    return <div className="no-chat-message">Create or select an existing chat to get started</div>;
   }
 
   return (

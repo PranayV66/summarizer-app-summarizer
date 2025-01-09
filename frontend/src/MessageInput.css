@@ -1,9 +1,9 @@
 .message-input-form {
-    display: flex;
-    align-items: flex-end;
-    margin-top: 8px;
-    width: 100%;
-}  
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  width: 100%;
+}
 .message-textarea {
   flex: 1;
   resize: none;
