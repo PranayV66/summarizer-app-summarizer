@@ -3,8 +3,10 @@ const cookieParser = require('cookie-parser');
 require('dotenv').config({ path: '../../../.env' });
 
 const authMiddleware = (req, res, next) => {
+  console.log("Auth middleware request: ", req);
+  console.log("Auth middleware cookies: ", req.cookies);
   const token = req.cookies.token; // Extract token from cookies
-  console.log('Received token:', token);
+  console.log('Received token: ', token);
   if (!token) {
     return res.status(401).json({ error: 'No token provided' });
   }

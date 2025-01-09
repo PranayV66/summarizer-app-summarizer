@@ -15,6 +15,7 @@ function App() {
   useEffect(() => {
     const jwtToken = Cookies.get('token');
     if (jwtToken) {
+      console.log('jwtToken:', jwtToken);
       setToken(jwtToken);
     }
   }, []);
