@@ -50,7 +50,7 @@ function App() {
   return (
     <div className="App">
       <div className="chat-list-container">
-        <h3>Create New Chat</h3>
+      <h3 className="create-chat-header">Create New Chat</h3>
         {error && <div style={{ color: 'red', marginBottom: '16px' }}>{error}</div>}
         <form onSubmit={handleCreateChat}>
           <input

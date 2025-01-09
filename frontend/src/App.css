@@ -63,9 +63,9 @@
   overflow: hidden;
 }
 .new-chat-input {
-  width: 90%;
+  width: 100%;
   padding: 12px 16px;
-  margin: 0 auto 16px auto;
+  margin-bottom: 16px;
   border: 1px solid #444444;
   border-radius: 20px;
   background-color: #1e1e1e;
@@ -90,12 +90,21 @@
   font-size: 16px;
   transition: background-color 0.3s ease;
   display: block;
-  margin: 0 auto;
+  margin-top: 8px;
+  width: 100%;
 }
 .create-chat-button:hover {
   background-color: #21a1f1;
 }
-h3 {
-  text-align: center;
+.create-chat-header {
+  text-align: left;
   margin-bottom: 16px;
+}
+.my-chats-header {
+  text-align: left;
+  margin-bottom: 16px;
+}
+h3 {
+  /* text-align: center;
+  margin-bottom: 16px; */
 }

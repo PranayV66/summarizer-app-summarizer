@@ -4,7 +4,7 @@ import '../ChatList.css';
 function ChatList({ chats, onSelectChat }) {
   return (
     <div className="chat-list">
-      <h3>My Chats</h3>
+      <h3 className="my-chats-header">My Chats</h3>
       {chats.map((chat) => (
         <div
           key={chat.id}
