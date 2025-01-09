@@ -1,9 +1,10 @@
 .App {
   display: flex;
-  text-align: center;
+  flex-direction: row;
+  height: 100vh;
   background-color: #121212;
   color: #ffffff;
-  min-height: 100vh;
+  overflow: hidden;
 }
 .App-logo {
   height: 40vmin;
@@ -51,13 +52,15 @@
   box-sizing: border-box;
 }
 .chat-list-spacing {
-  margin-top: 24px;
+  margin-top: 30px;
 }
 .chat-window-container {
   flex: 1;
   padding: 16px;
   background-color: #121212;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 .new-chat-input {
   width: 90%;

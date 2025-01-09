@@ -28,6 +28,8 @@
     overflow-y: auto;
     padding: 8px;
     margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
 }
 .message {
     padding: 10px 14px;

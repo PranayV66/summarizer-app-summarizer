@@ -7,7 +7,10 @@ function ChatWindow({ chat }) {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    if (!chat) return;
+    if (!chat) {
+      setMessages([]);
+      return;
+    }
     axios.get(`http://3.209.77.92:9000/chats/${chat.chat_id}/messages`, {
       withCredentials: true,
     })
