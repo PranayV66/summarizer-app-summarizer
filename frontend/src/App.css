@@ -63,7 +63,7 @@
   overflow: hidden;
 }
 .new-chat-input {
-  width: 100%;
+  width: 90%;
   padding: 12px 16px;
   margin-bottom: 16px;
   border: 1px solid #444444;
@@ -81,6 +81,7 @@
   border: 1px solid #61dafb;
 }
 .create-chat-button {
+  width: 90%;
   padding: 10px 20px;
   background-color: #61dafb;
   color: #1e1e1e;
@@ -91,7 +92,6 @@
   transition: background-color 0.3s ease;
   display: block;
   margin-top: 8px;
-  width: 100%;
 }
 .create-chat-button:hover {
   background-color: #21a1f1;
