@@ -44,7 +44,7 @@
   padding: 20px;
 }
 .chat-list-container {
-  width: 250px;
+  width: 300px;
   border-right: 1px solid #444444;
   padding: 16px;
   background-color: #1e1e1e;
@@ -103,8 +103,4 @@
 .my-chats-header {
   text-align: left;
   margin-bottom: 16px;
-}
-h3 {
-  /* text-align: center;
-  margin-bottom: 16px; */
 }
