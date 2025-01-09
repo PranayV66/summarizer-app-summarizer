@@ -1,37 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 import ChatList from './components/ChatList';
 import ChatWindow from './components/ChatWindow';
 
 const BACKEND_URL = `http://3.209.77.92:9000`;
 
 function App() {
-  const [token, setToken] = useState('');
   const [chats, setChats] = useState([]);
   const [selectedChat, setSelectedChat] = useState(null);
   const [newChatTitle, setNewChatTitle] = useState('');
+  const [error, setError] = useState(null);
 
+  // Fetch chats on component mount
   useEffect(() => {
-    const jwtToken = Cookies.get('token');
-    if (jwtToken) {
-      console.log('jwtToken:', jwtToken);
-      setToken(jwtToken);
-    }
+    const fetchChats = async () => {
+      try {
+        const response = await axios.get(`${BACKEND_URL}/chats`, { withCredentials: true });
+        console.log('Chats fetched:', response.data);
+        setChats(response.data);
+      } catch (error) {
+        console.error('Error fetching chats:', error);
+        setError('Failed to load chats. Please log in.');
+      }
+    };
+
+    fetchChats();
   }, []);
-
-  useEffect(() => {
-    if (!token) return;
-    console.log('Fetching chats with token:', token);
-    axios.get(`${BACKEND_URL}/chats`, {
-      withCredentials: true, // Include cookies
-    })
-    .then(res => {
-      console.log('Chats fetched:', res.data);
-      setChats(res.data);
-    })
-    .catch(err => console.error('Error fetching chats:', err));
-  }, [token]);
 
   const handleSelectChat = (chat) => {
     setSelectedChat(chat);
@@ -55,21 +49,25 @@ function App() {
 
   return (
     <div style={{ display: 'flex', height: '100vh' }}>
-      <div style={{ width: '250px', borderRight: '1px solid #ccc' }}>
+      <div style={{ width: '250px', borderRight: '1px solid #ccc', padding: '16px' }}>
         <h3>My Chats</h3>
-        <form onSubmit={handleCreateChat}>
+        {error && <div style={{ color: 'red', marginBottom: '16px' }}>{error}</div>}
+        <form onSubmit={handleCreateChat} style={{ marginBottom: '16px' }}>
           <input
             type="text"
             value={newChatTitle}
             onChange={(e) => setNewChatTitle(e.target.value)}
             placeholder="New chat title"
-            style={{ width: '80%', marginRight: '8px' }}
+            style={{ width: '100%', padding: '8px', marginBottom: '8px' }}
           />
-          <button type="submit">Create</button>
+          <button type="submit" style={{ width: '100%', padding: '8px' }}>
+            Create
+          </button>
         </form>
         <ChatList chats={chats} onSelectChat={handleSelectChat} />
+        {chats.length === 0 && <p>No chats available. Create a new chat!</p>}
       </div>
-      <ChatWindow chat={selectedChat} token={token} />
+      <ChatWindow chat={selectedChat} />
     </div>
   );
 }
