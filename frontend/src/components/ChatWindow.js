@@ -1,24 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MessageInput from './MessageInput';
+import '../ChatWindow.css';
 
-function ChatWindow({ chat, token }) {
+function ChatWindow({ chat }) {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     if (!chat) return;
-    // fetch messages for this chat
-
     axios.get(`http://3.209.77.92:9000/chats/${chat.chat_id}/messages`, {
       withCredentials: true,
     })
     .then(res => setMessages(res.data))
     .catch(err => console.error(err));
-  }, [chat, token]);
+  }, [chat]);
 
   const handleSendMessage = async (text) => {
     if (!chat) return;
-    // send message to this chat
     try 
       {
         const userMsg = await axios.post(`http://3.209.77.92:9000/chats/${chat.chat_id}/messages`,
@@ -34,7 +32,6 @@ function ChatWindow({ chat, token }) {
     catch (err) 
       {
         console.error(err);
-        // Remove "Assistant is typing..." if an error occurs
         setMessages(prev => prev.filter(msg => msg.id !== 'typing'));
       }
   };
@@ -44,11 +41,14 @@ function ChatWindow({ chat, token }) {
   }
 
   return (
-    <div style={{ flex: 1, padding: '16px' }}>
+    <div className="chat-window">
       <h2>{chat.title || `Chat #${chat.chat_id}`}</h2>
-      <div style={{ border: '1px solid #ddd', padding: '8px', height: '60vh', overflowY: 'auto' }}>
+      <div className="chat-messages">
         {messages.map(msg => (
-          <div key={msg.id} style={{ marginBottom: '8px' }}>
+          <div
+            key={msg.id}
+            className={`message ${msg.sender === 'assistant' ? 'assistant-message' : 'user-message'}`}
+          >
             {msg.content}
           </div>
         ))}

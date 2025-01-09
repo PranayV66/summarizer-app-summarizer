@@ -48,6 +48,7 @@
   padding: 16px;
   background-color: #1e1e1e;
   overflow-y: auto;
+  box-sizing: border-box;
 }
 .chat-window-container {
   flex: 1;
@@ -56,9 +57,9 @@
   overflow-y: auto;
 }
 .new-chat-input {
-  width: 100%;
+  width: 90%;
   padding: 12px 16px;
-  margin-bottom: 8px;
+  margin: 0 auto 16px auto;
   border: 1px solid #444444;
   border-radius: 20px;
   background-color: #1e1e1e;

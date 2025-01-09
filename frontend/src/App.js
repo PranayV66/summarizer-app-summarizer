@@ -12,7 +12,6 @@ function App() {
   const [newChatTitle, setNewChatTitle] = useState('');
   const [error, setError] = useState(null);
 
-  // Fetch chats on component mount
   useEffect(() => {
     const fetchChats = async () => {
       try {
@@ -38,7 +37,7 @@ function App() {
 
     console.log('Creating chat with title:', newChatTitle);
     axios.post(`${BACKEND_URL}/chats`, { title: newChatTitle }, {
-      withCredentials: true, // Include cookies
+      withCredentials: true,
     })
     .then(res => {
       console.log('Chat created:', res.data);
@@ -59,7 +58,7 @@ function App() {
             value={newChatTitle}
             onChange={(e) => setNewChatTitle(e.target.value)}
             placeholder="Enter a title for the new chat"
-            className="new-chat-input" // Use CSS class
+            className="new-chat-input"
           />
           <button type="submit" className="create-chat-button">
             Create!
