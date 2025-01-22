@@ -1,14 +1,12 @@
 replicaCount: 2
-
 imageBackend:
-  repository: ""
-  tag: ""
+  repository: "555247716309.dkr.ecr.us-east-1.amazonaws.com/summarizer-app-summarizer-backend"
+  tag: "136b61067c8c3856d201cbec2010faf8ddfadd0d"
   pullPolicy: IfNotPresent
 imageFrontend:
-  repository: ""
-  tag: ""
+  repository: "555247716309.dkr.ecr.us-east-1.amazonaws.com/summarizer-app-summarizer-frontend"
+  tag: "136b61067c8c3856d201cbec2010faf8ddfadd0d"
   pullPolicy: IfNotPresent
-
 serviceBackend:
   type: ClusterIP
   port: 9000
@@ -16,10 +14,8 @@ serviceFrontend:
   type: NodePort
   port: 80
   NodePort: 30008
-
 nodeSelector:
   ingress-zone: "1b"
-
 resources:
   limits:
     cpu: "500m"
@@ -27,7 +23,6 @@ resources:
   requests:
     cpu: "250m"
     memory: "256Mi"
-
 mysql:
   enabled: true
   architecture: standalone
