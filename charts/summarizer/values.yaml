@@ -1,0 +1,57 @@
+# replicaCount: 2
+# image:
+#   repository: ""
+#   tag: ""
+#   pullPolicy: IfNotPresent
+# service:
+#   # type: ClusterIP
+#   type: NodePort
+#   port: 5000
+#   nodePort: 30007
+# nodeSelector:
+#   ingress-zone: "1b"
+# resources:
+#   limits:
+#     cpu: "500m"
+#     memory: "512Mi"
+#   requests:
+#     cpu: "250m"
+#     memory: "256Mi"
+mysql:
+  enabled: true
+  architecture: standalone
+  networkPolicy:
+    enabled: false
+  initdbScripts:
+    init.sql: |
+      CREATE DATABASE IF NOT EXISTS `summarizer` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+      USE `summarizer`;
+
+      CREATE TABLE IF NOT EXISTS `chats` (
+          `chat_id` INT NOT NULL AUTO_INCREMENT,
+          `user_id` INT NOT NULL,
+          `title` VARCHAR(255) NOT NULL,
+          `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+          PRIMARY KEY (`chat_id`)
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+      CREATE TABLE IF NOT EXISTS `messages` (
+          `message_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+          `chat_id` INT NOT NULL,
+          `content` TEXT NOT NULL,
+          `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+          CONSTRAINT fk_chat_id FOREIGN KEY (chat_id) REFERENCES chats(chat_id) ON DELETE CASCADE
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  summarizer:
+    createDatabase: false
+    existingSecret: "mysql-secrets-summarizer"
+  primary:
+    podLabels:
+      app: summarize-ai-summarizer-mysql
+    persistence:
+      enabled: true
+      size: 1.5Gi
+      storageClass: "local-storage"
+      accessMode: ReadWriteOnce
+  service:
+    port: 3306

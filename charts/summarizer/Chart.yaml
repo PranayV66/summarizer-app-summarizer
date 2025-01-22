@@ -1,0 +1,10 @@
+apiVersion: v2
+name: summarize-ai-summarizer
+description: "Helm Chart for Summarizer Microservice"
+type: application
+version: 0.1.0
+appVersion: "1.0"
+dependencies:
+  - name: mysql
+    version: 12.2.1
+    repository: "https://charts.bitnami.com/bitnami"
