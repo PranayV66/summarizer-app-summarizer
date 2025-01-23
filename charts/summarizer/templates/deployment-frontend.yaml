@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: summarize-ai-summarizer-frontend-deployment
+  namespace: default
+  labels:
+    app: summarize-ai-summarizer-frontend-deployment
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: "summarize-ai-summarizer-frontend"
+  template:
+    metadata:
+      labels:
+        app: "summarize-ai-summarizer-frontend"
+    spec:
+      nodeSelector:
+        ingress-zone: "1b"
+      imagePullSecrets:
+        - name: ecr-secret
+      containers:
+        - name: "summarize-ai-summarizer-frontend"
+          image: "{{ .Values.imageFrontend.repository }}:{{ .Values.imageFrontend.tag }}"
+          imagePullPolicy: {{ .Values.imageFrontend.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.serviceFrontend.port }}
+
+          env:
+            - name: APP_DOMAIN
+              valueFrom:
+                secretKeyRef:
+                  name: summarizer-secrets
+                  key: APP_DOMAIN
+            - name: EXPRESS_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: summarizer-secrets
+                  key: EXPRESS_PORT
+          resources:
+            limits:
+              cpu: {{ .Values.resources.limits.cpu }}
+              memory: {{ .Values.resources.limits.memory }}
+            requests:
+              cpu: {{ .Values.resources.requests.cpu }}
+              memory: {{ .Values.resources.requests.memory }}

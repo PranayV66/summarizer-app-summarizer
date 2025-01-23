@@ -13,7 +13,7 @@ serviceBackend:
 serviceFrontend:
   type: NodePort
   port: 80
-  NodePort: 30008
+  nodePort: 30008
 nodeSelector:
   ingress-zone: "1b"
 resources:

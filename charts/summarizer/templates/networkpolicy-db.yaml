@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-backend-to-mysql
+  namespace: default
+  labels:
+    app: summarize-ai-summarizer
+spec:
+  podSelector:
+    matchLabels:
+      app: summarize-ai-summarizer-mysql
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: summarize-ai-summarizer-backend
+      ports:
+        - protocol: TCP
+          port: 3306
