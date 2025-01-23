@@ -1,11 +1,11 @@
 replicaCount: 2
 imageBackend:
   repository: "555247716309.dkr.ecr.us-east-1.amazonaws.com/summarizer-app-summarizer-backend"
-  tag: "5370fff904f22963d7cf861e9e4718079608ba45"
+  tag: "cc99178e6d12d6f781afc7519db77c4adbca1cdc"
   pullPolicy: IfNotPresent
 imageFrontend:
   repository: "555247716309.dkr.ecr.us-east-1.amazonaws.com/summarizer-app-summarizer-frontend"
-  tag: "5370fff904f22963d7cf861e9e4718079608ba45"
+  tag: "cc99178e6d12d6f781afc7519db77c4adbca1cdc"
   pullPolicy: IfNotPresent
 serviceBackend:
   type: ClusterIP
@@ -20,9 +20,9 @@ resources:
   limits:
     cpu: "500m"
     memory: "512Mi"
-  requests:
-    cpu: "250m"
-    memory: "256Mi"
+  # requests:
+  #   cpu: "250m"
+  #   memory: "256Mi"
 mysql:
   enabled: true
   architecture: standalone
