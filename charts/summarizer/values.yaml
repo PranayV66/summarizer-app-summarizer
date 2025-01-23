@@ -1,11 +1,11 @@
 replicaCount: 2
 imageBackend:
   repository: "555247716309.dkr.ecr.us-east-1.amazonaws.com/summarizer-app-summarizer-backend"
-  tag: "254c16cba3a7299f18d3ea8ddf272af5f46e259f"
+  tag: "301d2d3edcb68384ca41a52746f26d24282190cd"
   pullPolicy: IfNotPresent
 imageFrontend:
   repository: "555247716309.dkr.ecr.us-east-1.amazonaws.com/summarizer-app-summarizer-frontend"
-  tag: "254c16cba3a7299f18d3ea8ddf272af5f46e259f"
+  tag: "301d2d3edcb68384ca41a52746f26d24282190cd"
   pullPolicy: IfNotPresent
 serviceBackend:
   type: ClusterIP
