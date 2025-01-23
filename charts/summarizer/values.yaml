@@ -1,4 +1,4 @@
-replicaCount: 2
+replicaCount: 1
 imageBackend:
   repository: "555247716309.dkr.ecr.us-east-1.amazonaws.com/summarizer-app-summarizer-backend"
   tag: "6e81592fd95105e3dd96b4a52488d7f543094fc2"
