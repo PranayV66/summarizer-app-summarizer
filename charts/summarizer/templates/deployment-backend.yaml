@@ -1,0 +1,71 @@
+apiversion: apps/v1
+kind: Deployment
+metadata:
+  name: summarize-ai-summarizer-backend-deployment
+  namespace: default
+  labels:
+    app: summarize-ai-summarizer-backend-deployment
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: "summarize-ai-summarizer-backend"
+  template:
+    metadata:
+      labels:
+        app: "summarize-ai-summarizer-backend"
+    spec:
+      nodeSelector:
+        ingress-zone: "1b"
+      imagePullSecrets:
+        - name: ecr-secret
+      containers:
+        - name: "summarize-ai-summarizer-backend"
+          image: "{{ .Values.imageBackend.repository }}:{{ .Values.imageBackend.tag }}"
+          imagePullPolicy: {{ .Values.imageBackend.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.serviceBackend.port }}
+
+          env:
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: summarizer-secrets
+                  key: JWT_SECRET
+            - name: SQL_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: summarizer-secrets
+                  key: SQL_HOST
+            - name: SQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: summarizer-secrets
+                  key: SQL_USER
+            - name: SQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: summarizer-secrets
+                  key: SQL_PASSWORD
+            - name: SQL_DB
+              valueFrom:
+                secretKeyRef:
+                  name: summarizer-secrets
+                  key: SQL_DB
+            - name: APP_DOMAIN
+              valueFrom:
+                secretKeyRef:
+                  name: summarizer-secrets
+                  key: APP_DOMAIN
+            - name: EXPRESS_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: summarizer-secrets
+                  key: EXPRESS_PORT
+          resources:
+            limits:
+              cpu: {{ .Values.resources.limits.cpu }}
+              memory: {{ .Values.resources.limits.memory }}
+            requests:
+              cpu: {{ .Values.resources.requests.cpu }}
+              memory: {{ .Values.resources.requests.memory }}
