@@ -32,7 +32,7 @@ async function addMessage(req, res) {
     const userMsg = await messagesModel.createMessage(chatId, userText);
     // 2) Call LLM container
     const llmResponse = await axios.post(
-      'http://summarize-ai-llama:11434/api/generate',
+      'http://summarize-ai-llm-svc:11434/api/generate',
       {
         model: 'llama3.2',
         prompt: userText
