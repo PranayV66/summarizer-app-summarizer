@@ -8,11 +8,11 @@ imageFrontend:
   tag: "56d34bfb336588d66e6840248da29bb0d3f3a533"
   pullPolicy: IfNotPresent
 serviceBackend:
-  type: nodePort
+  type: NodePort
   port: 9000
   nodePort: 30009
 serviceFrontend:
-  type: nodePort
+  type: NodePort
   port: 3000
   nodePort: 30008
 nodeSelector:
