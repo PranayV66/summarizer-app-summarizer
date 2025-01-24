@@ -11,7 +11,7 @@ function ChatWindow({ chat }) {
       setMessages([]);
       return;
     }
-    axios.get(`http://3.209.77.92:9000/chats/${chat.chat_id}/messages`, {
+    axios.get(`http://34.236.217.66:30009/chats/${chat.chat_id}/messages`, {
       withCredentials: true,
     })
     .then(res => setMessages(res.data))
@@ -22,7 +22,7 @@ function ChatWindow({ chat }) {
     if (!chat) return;
     try 
       {
-        const userMsg = await axios.post(`http://3.209.77.92:9000/chats/${chat.chat_id}/messages`,
+        const userMsg = await axios.post(`http://34.236.217.66:30009/chats/${chat.chat_id}/messages`,
           { userText: text }, 
           { withCredentials: true }
         );

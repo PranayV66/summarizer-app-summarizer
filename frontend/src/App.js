@@ -4,7 +4,7 @@ import ChatList from './components/ChatList';
 import ChatWindow from './components/ChatWindow';
 import './App.css';
 
-const BACKEND_URL = `http://3.209.77.92:9000`;
+const BACKEND_URL = `http://34.236.217.66:30009`;
 
 function App() {
   const [chats, setChats] = useState([]);
