@@ -11,4 +11,4 @@ spec:
     app: "summarize-ai-summarizer-frontend"
   ports:
     - port: {{ .Values.serviceFrontend.port }}
-      NodePort: {{ .Values.serviceFrontend.nodePort }}
+      nodePort: {{ .Values.serviceFrontend.nodePort }}

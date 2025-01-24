@@ -8,11 +8,12 @@ imageFrontend:
   tag: "3077a42d51e9d78d65bef56a9c079d65d6160f84"
   pullPolicy: IfNotPresent
 serviceBackend:
-  type: ClusterIP
+  type: nodePort
   port: 9000
+  nodePort: 30009
 serviceFrontend:
-  type: NodePort
-  port: 80
+  type: nodePort
+  port: 3000
   nodePort: 30008
 nodeSelector:
   ingress-zone: "1b"

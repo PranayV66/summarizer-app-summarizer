@@ -1,4 +1,3 @@
-require('dotenv').config({ path: '../../../.env' });
 const chatsModel = require('../models/chatsModel');
 const messagesModel = require('../models/messagesModel');
 const axios = require('axios');
@@ -33,7 +32,7 @@ async function addMessage(req, res) {
     const userMsg = await messagesModel.createMessage(chatId, userText);
     // 2) Call LLM container
     const llmResponse = await axios.post(
-      'http://llama:11434/api/generate',
+      'http://summarize-ai-llama:11434/api/generate',
       {
         model: 'llama3.2',
         prompt: userText

@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
-require('dotenv').config({ path: '../../../.env' });
 
 const authMiddleware = (req, res, next) => {
   console.log("Auth middleware request: ", req);
