@@ -18,5 +18,4 @@ spec:
               app: summarize-ai-summarizer-frontend
       ports:
         - protocol: TCP
-          port: 9000
           port: 30008
