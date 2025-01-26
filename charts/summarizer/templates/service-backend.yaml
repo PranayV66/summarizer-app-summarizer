@@ -11,3 +11,4 @@ spec:
     app: "summarize-ai-summarizer-backend"
   ports:
     - port: {{ .Values.serviceBackend.port }}
+      timeoutSeconds: {{ .Values.serviceBackend.timeoutSeconds }}
