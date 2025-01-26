@@ -6,7 +6,8 @@ const authMiddleware = require('./middleware/auth');
 const chatsRoutes = require('./routes/chatsRoutes');
 const messagesRoutes = require('./routes/messagesRoutes');
 const app = express();
-const origin = `http://${process.env.APP_DOMAIN}:30008`;
+// const origin = `http://${process.env.APP_DOMAIN}:30008`;
+const origin = `http://${process.env.APP_DOMAIN}`;
 
 // Configure CORS to allow credentials and specify origin
 app.use(cors({
@@ -20,9 +21,9 @@ app.use(express.json());
 app.use(cookieParser());
 // Apply auth middleware globally
 app.use(authMiddleware);
-app.use('/chats', chatsRoutes);
-app.use('/chats', messagesRoutes);
-app.get('/', (req, res) => {
+app.use('/api/chats', chatsRoutes);
+app.use('/api/chats', messagesRoutes);
+app.get('/api', (req, res) => {
   res.send('Summarizer backend is running');
 });
 const PORT = process.env.PORT || 9000;

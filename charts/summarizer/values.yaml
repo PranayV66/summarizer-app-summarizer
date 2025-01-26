@@ -8,13 +8,9 @@ imageFrontend:
   tag: "610d828e28de594682c5b25a30f76b81644b9473"
   pullPolicy: IfNotPresent
 serviceBackend:
-  type: NodePort
   port: 9000
-  nodePort: 30009
 serviceFrontend:
-  type: NodePort
   port: 80
-  nodePort: 30008
 nodeSelector:
   ingress-zone: "1b"
 resources:
