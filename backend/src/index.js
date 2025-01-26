@@ -7,7 +7,7 @@ const chatsRoutes = require('./routes/chatsRoutes');
 const messagesRoutes = require('./routes/messagesRoutes');
 const app = express();
 // const origin = `http://${process.env.APP_DOMAIN}:30008`;
-const origin = `http://${process.env.APP_DOMAIN}`;
+const origin = `https://${process.env.APP_DOMAIN}`;
 
 // Configure CORS to allow credentials and specify origin
 app.use(cors({

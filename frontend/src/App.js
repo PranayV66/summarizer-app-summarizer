@@ -5,7 +5,7 @@ import ChatWindow from './components/ChatWindow';
 import './App.css';
 
 // const BACKEND_URL = `http://34.236.217.66:30009`;
-const BACKEND_URL = `http://summarize-ai.com/api`;
+const BACKEND_URL = `https://summarize-ai.com/api`;
 
 function App() {
   const [chats, setChats] = useState([]);
