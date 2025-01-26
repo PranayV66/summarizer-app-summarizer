@@ -5,6 +5,7 @@ import '../ChatWindow.css';
 
 function ChatWindow({ chat }) {
   const [messages, setMessages] = useState([]);
+  const axiosInstance = axios.create({ timeout: 600000 });
 
   useEffect(() => {
     if (!chat) {
@@ -12,7 +13,7 @@ function ChatWindow({ chat }) {
       return;
     }
     // axios.get(`http://34.236.217.66:30009/chats/${chat.chat_id}/messages`, {
-      axios.get(`https://summarize-ai.com/api/chats/${chat.chat_id}/messages`, {
+      axiosInstance.get(`https://summarize-ai.com/api/chats/${chat.chat_id}/messages`, {
       withCredentials: true,
     })
     .then(res => setMessages(res.data))
@@ -24,7 +25,7 @@ function ChatWindow({ chat }) {
     try 
       {
         // const userMsg = await axios.post(`http://34.236.217.66:30009/chats/${chat.chat_id}/messages`,
-        const userMsg = await axios.post(`https://summarize-ai.com/api/chats/${chat.chat_id}/messages`,
+        const userMsg = await axiosInstance.post(`https://summarize-ai.com/api/chats/${chat.chat_id}/messages`,
           { userText: text }, 
           { withCredentials: true }
         );
