@@ -27,6 +27,7 @@ app.get('/api', (req, res) => {
   res.send('Summarizer backend is running');
 });
 const PORT = process.env.PORT || 9000;
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Backend listening on port ${PORT}`);
 });
+server.setTimeout(600000);
