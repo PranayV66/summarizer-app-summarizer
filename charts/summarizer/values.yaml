@@ -9,10 +9,8 @@ imageFrontend:
   pullPolicy: IfNotPresent
 serviceBackend:
   port: 9000
-  timeoutSeconds: 4000
 serviceFrontend:
   port: 80
-  timeoutSeconds: 4000
 nodeSelector:
   ingress-zone: "1b"
 resources:
