@@ -22,26 +22,31 @@ function ChatWindow({ chat }) {
 
   const handleSendMessage = async (text) => {
     if (!chat) return;
+
+    const localUserMsg = {
+      id: Date.now(),
+      content: text,
+      sender: 'user',
+    };
+    setMessages((prev) => [...prev, localUserMsg]);
+    const typingMsg = { id: 'typing', content: 'Assistant is typing...', sender: 'assistant' };
+    setMessages((prev) => [...prev, typingMsg]);
     try 
       {
-        // const userMsg = await axios.post(`http://34.236.217.66:30009/chats/${chat.chat_id}/messages`,
         const userMsg = await axiosInstance.post(`https://summarize-ai.com/api/chats/${chat.chat_id}/messages`,
           { userText: text }, 
           { withCredentials: true }
         );
-        const typingMsg = { id: 'typing', content: 'Assistant is typing...' };
-          setMessages(prev => [...prev, userMsg.data.userMsg, typingMsg]);
-
-        const assistantMsg = userMsg.data.assistantMsg;
-        setMessages(prev => prev.filter(msg => msg.id !== 'typing').concat(assistantMsg));
+        setMessages((prev) =>
+          prev.filter((msg) => msg.id !== 'typing').concat(userMsg.data.assistantMsg)
+        );
       }      
     catch (err) 
       {
         console.error(err);
-        setMessages(prev => prev.filter(msg => msg.id !== 'typing'));
+        setMessages((prev) => prev.filter((msg) => msg.id !== 'typing'));
       }
   };
-
   if (!chat) {
     return <div className="no-chat-message">Create or select an existing chat to get started</div>;
   }
