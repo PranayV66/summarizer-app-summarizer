@@ -1,11 +1,11 @@
 replicaCount: 1
 imageBackend:
   repository: "555247716309.dkr.ecr.us-east-1.amazonaws.com/summarizer-app-summarizer-backend"
-  tag: "6ff7d271c72b61778cf7868d2e6c09155b47c5be"
+  tag: "34dcf9d4828c39a17d8a8e4d77342fe1fd077da7"
   pullPolicy: IfNotPresent
 imageFrontend:
   repository: "555247716309.dkr.ecr.us-east-1.amazonaws.com/summarizer-app-summarizer-frontend"
-  tag: "6ff7d271c72b61778cf7868d2e6c09155b47c5be"
+  tag: "34dcf9d4828c39a17d8a8e4d77342fe1fd077da7"
   pullPolicy: IfNotPresent
 serviceBackend:
   port: 9000
