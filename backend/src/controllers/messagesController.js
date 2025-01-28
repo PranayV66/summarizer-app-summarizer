@@ -33,7 +33,7 @@ async function addMessage(req, res) {
     // 2) Call LLM container
     const llmResponse = await axios.post(
       'http://summarize-ai-llm-svc:11434/api/generate',
-      { model: 'tinyllama', prompt: userText },
+      { model: 'deepseek-r1:1.5b', prompt: userText },
       { timeout: 600000 },
       { responseType: 'text' }
     );
