@@ -33,7 +33,7 @@ async function addMessage(req, res) {
     // 2) Call LLM container
     const llmResponse = await axios.post(
       'http://summarize-ai-llm-svc:11434/api/generate',
-      { model: 'mistral', prompt: userText },
+      { model: 'llama3.2', prompt: userText },
       { timeout: 300000 },
       { responseType: 'text' }
     );
