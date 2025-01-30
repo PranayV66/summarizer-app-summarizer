@@ -16,7 +16,7 @@ function MessageInput({ onSend }) {
       textareaRef.current.style.height = 'auto';
       const { scrollHeight } = textareaRef.current;
       textareaRef.current.style.height =
-        scrollHeight <= 150 ? `${scrollHeight}px` : '150px';
+        scrollHeight <= 250 ? `${scrollHeight}px` : '250px';
     }
   }, [text]);
   return (
