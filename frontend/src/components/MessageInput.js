@@ -11,6 +11,14 @@ function MessageInput({ onSend }) {
     onSend(text);
     setText('');
   };
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      const { scrollHeight } = textareaRef.current;
+      textareaRef.current.style.height =
+        scrollHeight <= 150 ? `${scrollHeight}px` : '150px';
+    }
+  }, [text]);
   return (
     <form onSubmit={handleSubmit} className="message-input-form">
       <textarea
