@@ -5,7 +5,7 @@ import '../ChatWindow.css';
 
 function ChatWindow({ chat }) {
   const [messages, setMessages] = useState([]);
-  const axiosInstance = axios.create({ timeout: 300000 });
+  const axiosInstance = axios.create({ timeout: 600000 });
 
   useEffect(() => {
     if (!chat) {

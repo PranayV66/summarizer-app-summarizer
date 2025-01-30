@@ -34,7 +34,7 @@ async function addMessage(req, res) {
     const llmResponse = await axios.post(
       'http://summarize-ai-llm-svc:11434/api/generate',
       { model: 'llama3.2', prompt: userText },
-      { timeout: 300000 },
+      { timeout: 600000 },
       { responseType: 'text' }
     );
 
