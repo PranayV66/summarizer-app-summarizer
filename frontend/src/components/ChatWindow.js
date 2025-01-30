@@ -29,7 +29,7 @@ function ChatWindow({ chat }) {
       sender: 'user',
     };
     setMessages((prev) => [...prev, localUserMsg]);
-    const typingMsg = { id: 'typing', content: 'Assistant is typing...', sender: 'assistant' };
+    const typingMsg = { id: 'typing', content: 'Thinking...', sender: 'assistant' };
     setMessages((prev) => [...prev, typingMsg]);
     try 
       {
@@ -52,9 +52,9 @@ function ChatWindow({ chat }) {
   }
 
   return (
-    <div className="chat-window">
+    <div className="chat-window" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <h2>{chat.title || `Chat #${chat.chat_id}`}</h2>
-      <div className="chat-messages">
+      <div className="chat-messages" style={{ flex: 1, overflowY: 'auto' }}>
         {messages.map(msg => (
           <div
             key={msg.id}
